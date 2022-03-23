@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/vendors/global/vendors.bundle.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~highlight.js/styles/googlecode.css";
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+	display: none !important;
+}
+
+
+.mat-table__wrapper--dashboard .mat-table {
+	min-width: 600px!important;
+	width: 100% !important;
+}
+
+.position-static {
+	position: static;
+}
+.promo_img label {
+    border: 1px dashed #f8007b;
+    padding: 5px 8px;
+    margin-top: 5px;
+	cursor: pointer;
+	width:100%;
+}
+.promo_img label i {
+    color: #f8007b;
+    margin-right: 5px;
+}
+.promo_img {
+    position: relative;
+}
+.promo_img img {
+    width: 100%;
+    height: 180px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    margin: 12px 0;
+    outline: 2px solid #f8000063;
+    outline-offset: -10px;
+}
+.edit_form {
+	position: absolute;
+	top: 12px;
+	left: 0;
+	right: 0;
+	bottom: 12px;
+	background: #0000005c;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color:#333;
+}
+.img_view a i, .promo_img a i {
+	background:rgba(255, 255, 255, 0.70);
+	padding: 5px;
+	height: 25px;
+	width: 25px;
+	margin:0 3px;
+	text-align: center;
+	line-height: 16px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

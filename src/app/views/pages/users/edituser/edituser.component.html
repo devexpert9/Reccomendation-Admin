@@ -1,0 +1,142 @@
+<div class="kt-portlet">
+		<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Edit User</span></h3>
+		 </div>
+		 <div class="kt-portlet__head-toolbar">
+		  <button  routerLink="/demo1/users/" mat-raised-button color="yellow">Back To Users</button>
+		 </div>
+	</div>
+		<div class="kt-portlet__body">
+	        	
+	        	
+	        	<div class="row">
+	        	<div class="col-md-4">
+	        	<div class="profile_user">
+					<div class="card " >
+								<div class="card-body text-center">
+									<div class="user-image ">
+										<img *ngIf="is_uploaded == false && errors.indexOf(user?.image) == -1" class="rounded-circle img-thumbnail" src="{{IMAGES_URL + user?.image}}"/>
+										<img *ngIf="is_uploaded == false && errors.indexOf(user?.image) >= 0"  class="rounded-circle img-thumbnail" src="assets/media/users/default.jpg" >
+										<img *ngIf="is_uploaded == true"  [src]="sanitizer.bypassSecurityTrustUrl(image_url)" class="rounded-circle img-thumbnail" >
+										<label  for="user-img">Upload Picture</label>
+										<input  id="user-img" name="user-img" style="display:none" (change)="upload($event)" type="file">
+									</div>
+								</div>
+						</div>
+						</div>
+				</div>
+				<div class="col-md-8 profile_form"><h4 class="mb-4 mt-0 tsrs-sa">Basic Info</h4>
+					<form class="kt-form" [formGroup]="addForm" autocomplete="off" (ngSubmit)="updateUser()">
+						<div class="row grp_form" >
+							<div class="col-md-12">
+							  <div class="form-group">
+								  <label class="frm_label">Full Name</label>
+								  <div class="input-group">
+									  <input type="text" class="form-control" placeholder="" name="" formControlName="name">
+								  </div>
+								  <mat-error *ngIf="isControlHasError('name','required')">
+									<strong>Please enter name</strong>
+									</mat-error>
+									 <mat-error *ngIf="isControlHasError('name','pattern')">
+									<strong>Please enter valid name should starts with alphabet</strong>
+									</mat-error>
+									
+							  </div>
+						   </div>					
+						   <div class="col-md-6">
+							  <div class="form-group">
+								  <label class="frm_label">Email</label>
+								  <div class="input-group">
+									  <input type="email" class="form-control" placeholder="" name="" formControlName="email">
+								  </div>
+								  <mat-error *ngIf="isControlHasError('email','required')">
+									<strong>Please enter email</strong>
+									</mat-error>
+									<mat-error *ngIf="isControlHasError('email','pattern')">
+									<strong>Please enter valid email</strong>
+									</mat-error>
+							  </div>
+							  </div>
+							  	   <div class="col-md-6">
+								  <div class="form-group">
+										  <label class="frm_label">Phone No.</label>
+										  <div class="input-group">
+											  <input type="text" class="form-control" placeholder="" name="" formControlName="contact">
+										  </div>
+										  <mat-error *ngIf="isControlHasError('name','required')">
+											<strong>Please enter phone number</strong>
+											</mat-error>
+											<mat-error *ngIf="isControlHasError('contact','pattern')">
+											<strong>Phone number should consist min. 6 digits and max. 10 digits</strong>
+											</mat-error>
+									  </div>
+							   </div>
+							    <!--div class="col-md-6">
+									<div class="form-group">
+										<label class="frm_label">Profession</label>
+										<div class="input-group">
+											<select class="form-control">
+											<option> - Select - </option>
+												<option> Dental Assistant  </option>
+												<option> Dental Hygienist </option>
+												<option selected=""> Dentist </option>
+											</select>
+										</div>
+									</div>
+								</div--->
+						</div>
+						<h4 class="mb-4 mt-5 tsrs-sa">Change Password</h4>
+				
+						<div class="row">	
+							<!-- <div class="col-md-12">
+								<div class="form-group">
+								  <label class="frm_label">Old Password</label>
+								  <div class="input-group">
+									  <input class="form-control" placeholder="" name="">
+								  </div>
+							  </div>
+							</div> -->
+							<div class="col-md-6">
+								<div class="form-group">
+								  <label class="frm_label">New Password</label>
+								  <div class="input-group">
+									  <input class="form-control" placeholder="" name="" type="password" formControlName="new_password" (keyup)="checkValuePass($event)">
+								  </div> 
+								 	<mat-error *ngIf="isControlHasError('new_password','pattern')">
+										<strong>Please enter valid password containing no space</strong>
+									</mat-error>
+								
+
+							  </div>
+							</div>
+							<div class="col-md-6">
+							  <div class="form-group">
+								  <label class="frm_label">Confirm New Password</label>
+								  <div class="input-group">
+									  <input class="form-control" placeholder="" name="" type="password" formControlName="confirm_password" (keyup)="checkValueConfirmPass($event)">
+								  </div>
+								 <mat-error *ngIf="!isControlHasError('confirm_password','pattern') && isControlHasError('confirm_password','required')">
+									<strong>Please enter confirm password</strong>
+									</mat-error>
+
+								<mat-error *ngIf="isControlHasError('confirm_password','pattern')">
+								<strong>Please enter valid confirm password containing no space</strong>
+								</mat-error>
+
+								<mat-error *ngIf="!isControlHasError('confirm_password','required') && !isControlHasError('confirm_password','pattern') && addForm.value.new_password != addForm.value.confirm_password">
+									<strong>Password and confirm password should be same</strong>
+								</mat-error>
+							  </div>
+							</div>	
+							<div class="col-md-12 mt-3">
+								<button type="submit" btn-submit mat-raised-button color="pink">Save Changes</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+</div> 
+
+

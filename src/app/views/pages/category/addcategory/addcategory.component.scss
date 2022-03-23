@@ -1,0 +1,86 @@
+.switch input:empty {
+	margin-left: -999px;
+	height: 0;
+	width: 0;
+	overflow: hidden;
+	position: absolute;
+	opacity: 0;
+}
+
+.switch input:empty ~ span {
+	margin: 2px 0;
+	height: 30px;
+	width: 57px;
+	border-radius: 15px;
+}
+
+.switch input:empty ~ span {
+	display: inline-block;
+	position: relative;
+
+	width: 1px;
+	text-indent: 0;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.switch input:empty ~ span:before {
+	background-color: #ebedf3;
+}
+.switch input:empty ~ span:before,
+.switch input:empty ~ span:after {
+	width: 54px;
+	border-radius: 15px;
+}
+.switch input:empty ~ span:before,
+.switch input:empty ~ span:after {
+	position: absolute;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	content: " ";
+	-webkit-transition: all 100ms ease-in;
+	transition: all 100ms ease-in;
+}
+
+.switch input:empty ~ span:after {
+	background-color: #ffffff;
+	opacity: 0.7;
+}
+
+.switch input:empty ~ span:after {
+	height: 24px;
+	width: 24px;
+	top: 3px;
+	bottom: 3px;
+	margin-left: 3px;
+	font-size: 0.65em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.switch input:checked ~ span:after {
+	opacity: 1;
+	color: #ffffff;
+	background-color: #3699ff;
+}
+
+.switch input:checked ~ span:before {
+	background-color: #ebedf3;
+}
+
+.switch input:checked ~ span:after {
+	margin-left: 26px;
+}

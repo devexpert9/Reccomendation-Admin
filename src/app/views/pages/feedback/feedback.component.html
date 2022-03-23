@@ -1,0 +1,209 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title"><span>Feedbacks</span></h3>
+		</div>
+		<!-- <div class="kt-portlet__head-toolbar">
+			<button
+				routerLink="/demo1/users/adduser"
+				mat-raised-button
+				color="yellow"
+			>
+				Add User
+			</button>
+		</div> -->
+	</div>
+
+	<div class="kt-portlet__body pt-0">
+		<mat-form-field class="mat-form-field-infix">
+			<input
+				matInput
+				(keyup)="applyFilter($event.target.value)"
+				placeholder="Search"
+			/>
+		</mat-form-field>
+		<div class="table-responsive">
+			<div class="mat-table__wrapper">
+				<mat-table #table [dataSource]="dataSource" matSort>
+					<ng-container matColumnDef="select">
+						<mat-header-cell *matHeaderCellDef check>
+							<mat-checkbox
+								(change)="$event ? masterToggle() : null"
+								[checked]="
+									selection.hasValue() && isAllSelected()
+								"
+								[indeterminate]="
+									selection.hasValue() && !isAllSelected()
+								"
+							>
+							</mat-checkbox>
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row" check>
+							<mat-checkbox
+								(click)="$event.stopPropagation()"
+								(change)="$event ? selection.toggle(row) : null"
+								[checked]="selection.isSelected(row)"
+							>
+							</mat-checkbox>
+						</mat-cell>
+					</ng-container>
+					<!-- Image Column -->
+					<!-- <ng-container matColumnDef="imageurl">
+						<mat-header-cell *matHeaderCellDef width10>
+							Image
+						</mat-header-cell>
+						<mat-cell *matCellDef="let element" width10>
+							<img
+								class="table-user rounded-circle img-thumbnail"
+								width="60px"
+								height="60px"
+								*ngIf="
+									errors.indexOf(element.image) == -1 &&
+									getimage(element.image) == true
+								"
+								src="{{ element.image }}"
+							/>
+							<img
+								class="table-user rounded-circle img-thumbnail"
+								width="60px"
+								height="60px"
+								*ngIf="
+									errors.indexOf(element.image) == -1 &&
+									getimage(element.image) == false
+								"
+								src="{{ IMAGES_URL + element.image }}"
+							/>
+							<img
+								class="table-user rounded-circle img-thumbnail"
+								width="60px"
+								height="60px"
+								*ngIf="errors.indexOf(element.image) >= 0"
+								src="assets/img/default.png"
+							/>
+						</mat-cell>
+					</ng-container> -->
+					<!-- Name Column -->
+					<ng-container matColumnDef="name">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Name
+						</mat-header-cell>
+						<mat-cell *matCellDef="let element">
+							{{ element.name }}
+						</mat-cell>
+					</ng-container>
+					<!-- Email Column -->
+					<ng-container matColumnDef="email">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Email ID</mat-header-cell
+						>
+						<mat-cell *matCellDef="let element">
+							{{ element.email }}
+						</mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="contact">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Message</mat-header-cell
+						>
+						<mat-cell *matCellDef="let element">
+							{{ element.message }}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Action Column -->
+					<!-- <ng-container matColumnDef="action">
+						<mat-header-cell *matHeaderCellDef action-box width20>
+							Action
+						</mat-header-cell>
+						<mat-cell
+							*matCellDef="let element; let i = index"
+							action-box
+							width20
+						>
+							<button
+								routerLink="/demo1/users/edituser/{{
+									element._id
+								}}"
+								mat_primary_color
+								mat-icon-button
+								color="pink"
+								matTooltip="Edit  User"
+							>
+								<i class="fa fa-pencil-alt"></i></button
+							>&nbsp;
+
+							<button
+								(click)="
+									openVerticallyCentered(
+										content,
+										element._id,
+										i +
+											paginator.pageIndex *
+												paginator.pageSize
+									)
+								"
+								mat-icon-button
+								color="danger"
+								matTooltip="Delete"
+								type="button"
+							>
+								<mat-icon>delete</mat-icon>
+							</button>
+						</mat-cell>
+					</ng-container> -->
+					<mat-header-row
+						*matHeaderRowDef="displayedColumns"
+					></mat-header-row>
+					<mat-row
+						*matRowDef="let row; columns: displayedColumns"
+					></mat-row>
+				</mat-table>
+			</div>
+		</div>
+		<mat-paginator
+			#paginator
+			[pageSize]="10"
+			[pageSizeOptions]="[5, 10, 20]"
+			[showFirstLastButtons]="true"
+		>
+		</mat-paginator>
+	</div>
+</div>
+<div class="kt-section">
+	<div class="kt-section__content">
+		<ng-template #content let-c="close" let-d="dismiss">
+			<div class="modal-body">
+				<button
+					type="button"
+					class="close close-modal"
+					aria-label="Close"
+					(click)="d('Cross click')"
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-inner text-center">
+					<i class="flaticon2-close-cross fa-4x close-icon"></i>
+					<h4>Are You Sure ?</h4>
+					<p class="mb-0">Are you sure to delete this user?</p>
+				</div>
+			</div>
+			<div
+				class="modal-footer no-border pt-0 justify-content-center pb-4"
+			>
+				<button
+					type="button"
+					class="btn btn-secondary"
+					(click)="c('Close click')"
+				>
+					Cancel
+				</button>
+				<button
+					type="button"
+					class="btn btn-danger"
+					(click)="confirm_delete()"
+				>
+					Delete
+				</button>
+			</div>
+		</ng-template>
+	</div>
+</div>

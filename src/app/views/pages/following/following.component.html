@@ -1,0 +1,47 @@
+<div class="kt-portlet">
+		<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Following </span></h3>
+		 </div>
+
+	</div>
+		<div class="kt-portlet__body">       	        	
+	        <div class="row">
+				<div class="col-md-12">
+					<div class="media folowing-sec" *ngFor="let doc of dataSource; let i = index;">
+						<!-- <img src="assets/media/users/300_13.jpg" alt="" class="mr-3 rounded-circle"> -->
+
+						<img class="mr-3 rounded-circle"  *ngIf="errors.indexOf(doc.image) == -1 && getimage(doc.image) == true" src="{{doc.image}}">
+				        <img class="mr-3 rounded-circle" *ngIf="errors.indexOf(doc.image) == -1 && getimage(doc.image) == false" src="{{IMAGES_URL + doc.image}}">
+				        <img class="mr-3 rounded-circle" *ngIf="errors.indexOf(doc.image) >= 0" src="assets/img/default.png">
+						<div class="media-body">
+							<h4>{{doc.name}}</h4>
+						</div>
+						<a class="unfolow-btn" href="javascript:void(0)"  (click)="openVerticallyCentered(content, doc._id, i)">Unfollow</a>
+					</div>
+					<div *ngIf="dataSource.length == 0"> No users found.</div>
+				</div>
+			</div>
+		</div>	
+
+
+		<div class="kt-section">
+  <div class="kt-section__content">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-body">
+        <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div  class="modal-inner text-center">
+          <i class="flaticon2-close-cross fa-4x close-icon"></i>
+          <h4>Are You Sure ?</h4>
+          <p class="mb-0">Are you sure you want to unfollow this user? This process cannot be undone</p>
+        </div>
+      </div>
+      <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirm_delete()">OK</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

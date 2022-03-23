@@ -1,0 +1,53 @@
+<div class="row">
+
+	<div class="col-xl-12 col-lg-12 order-lg-12 order-xl-1">
+		<!--begin:: Widgets/New Users-->
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">
+				Notifications
+			</h3>
+		</div>
+	</div>
+	<div class="kt-portlet__body">
+		<div class="kt-widget4 widt-tbs">
+			<div class="kt-widget4__item" *ngFor="let doc of dataSource; let i = index;">
+				<div class="kt-widget4__pic kt-widget4__pic--pic">
+					<!-- <img src="assets/media/users/100_2.jpg" alt=""> -->
+
+					<img  *ngIf="errors.indexOf(doc.sender_image) == -1 && getimage(doc.sender_image) == true" src="{{doc.sender_image}}">
+			        <img *ngIf="errors.indexOf(doc.sender_image) == -1 && getimage(doc.sender_image) == false" src="{{IMAGES_URL + doc.sender_image}}">
+			        <img *ngIf="errors.indexOf(doc.sender_image) >= 0" src="assets/img/default.png">   
+				</div>
+				<div class="kt-widget4__info">
+					<a routerLink="/demo1/users" class="kt-widget4__username">
+						{{doc.sender_name}}
+						
+					</a>
+					
+					<p class="kt-widget4__text" *ngIf="doc.noti_type == 'register'">
+					  {{doc.sender_name}} registeredsuccessfully.
+					</p>
+					<p class="kt-widget4__text" *ngIf="doc.noti_type == 'add post'">
+					  {{doc.sender_name}} added new reccomendation.
+					</p>
+					<p class="kt-widget4__text" *ngIf="doc.noti_type == 'add like'">
+					  {{doc.sender_name}} liked {{doc.receiver_name}}'s reccomendation.
+					</p>
+					<p class="kt-widget4__text" *ngIf="doc.noti_type == 'add comment'">
+					  {{doc.sender_name}} commented on {{doc.receiver_name}}'s reccomendation.
+					</p>
+					<p class="kt-widget4__text" *ngIf="doc.noti_type == 'follow user'">
+					  {{doc.sender_name}} started following {{doc.receiver_name}}.
+					</p>							 		 
+				</div>						 
+				<span class="time-rigt"> <i class="flaticon2-crisp-icons-1"></i> {{doc.created_on| timeAgo}} </span>						 
+			</div>  
+
+				
+		</div>  
+	</div>
+</div>
+<!--end:: Widgets/New Users-->	</div>
+</div>

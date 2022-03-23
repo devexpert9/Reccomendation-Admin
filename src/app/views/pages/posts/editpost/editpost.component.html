@@ -1,0 +1,114 @@
+<div class="kt-portlet">
+		<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Edit Post</span></h3>
+		 </div>
+		 <div class="kt-portlet__head-toolbar">
+		  <button  routerLink="/demo1/posts/" mat-raised-button color="yellow">Back To Posts</button>
+		 </div>
+	</div>
+		<div class="kt-portlet__body">
+	        	
+	        	
+	        	<div class="row">
+				<div class="col-md-12 profile_form">
+					<form class="kt-form" [formGroup]="addForm" autocomplete="off" (ngSubmit)="updatePost()">
+					<div class="row grp_form" >
+						    <div class="col-md-6">
+								<div class="form-group">
+									<label class="frm_label">Type</label>
+									<div class="input-group">
+										<select class="form-control" formControlName="type" (change)="typeChange(addForm.value.type)">
+										    <option value=""> - Select - </option>
+											<option value="Photo"> Photo / Image </option>
+											<option value="Website"> Website link </option>
+											<option value="Words"> Words Only </option>
+										</select>
+									</div>
+									<mat-error *ngIf="isControlHasError('type','required')">
+									<strong>Please select type</strong>
+									</mat-error>
+								</div>
+							</div>
+						    <div class="col-md-6">
+								<div class="form-group">
+									<label class="frm_label">Category</label>
+									<div class="input-group">
+										<select class="form-control" formControlName="category">
+										    <option value=""> - Select - </option>
+											<option *ngFor="let doc of categories; let i = index;" value="{{doc._id}}"> {{doc.name}} </option>
+										</select>
+									</div>
+
+									<mat-error *ngIf="isControlHasError('category','required')">
+									<strong>Please select category</strong>
+									</mat-error>
+								</div>
+							</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="frm_label">Description</label>
+							<div class="input-group">
+								<textarea rows="4" class="form-control" formControlName="description"></textarea>
+							</div>
+							<!-- <mat-error *ngIf="is_submit == true && addForm.value.type != 'Website' "> -->
+							<mat-error *ngIf="isControlHasError('description','required')">
+								<strong>Please enter description</strong>
+							</mat-error>
+						</div>
+					</div>	
+					<div class="col-md-12" *ngIf="addForm.value.type == 'Website'">
+						<div class="form-group">
+							<label class="frm_label">Web Link</label>
+							<div class="input-group">
+								<textarea rows="4" class="form-control" formControlName="web_link"></textarea>
+							</div>
+							<mat-error *ngIf="is_submit == true && addForm.value.type == 'Website' && errors.indexOf(addForm.value.web_link) >= 0">
+								<strong>Please enter web link</strong>
+							</mat-error>
+							<mat-error *ngIf="is_submit == true && addForm.value.type == 'Website' && errors.indexOf(addForm.value.web_link) == -1 && !expression.test(addForm.value.web_link)">
+							<!-- <mat-error *ngIf="isControlHasError('web_link','required')"> -->
+								<strong>Please enter valid web link (i.e. http://www.example.com, https://www.example.com, www.example.com, example.com)</strong>
+							</mat-error>
+						</div>
+					</div>	
+					<div class="col-md-12" *ngIf="addForm.value.type == 'Photo'">
+								<div class="form-group">
+							<label class="frm_label">Image</label>
+							<div class="input-group manageposts">
+								<label for="personalize-posts">
+								   <i class="flaticon-upload-1"></i><br>
+								   <p>Upload Image</p>
+								   
+								</label>
+								<input style="display:none;" type="file" id="personalize-posts" name="personalize-posts" (change)="upload($event)"/>
+								
+							</div>
+						</div>
+					</div>
+					<mat-error *ngIf="(errors.indexOf(post?.image) >= 0 || errors.indexOf(image_url) >= 0) && is_submit == true && addForm.value.type == 'Photo'">
+						<strong>Please upload image</strong>
+					</mat-error>	
+					    <div class="col-md-6">
+								<div class="form-group">
+							   <div class="imgposts">
+							      <!-- <img src="assets/media/imgs/post1.jpg"/> -->
+							      	<img *ngIf="is_uploaded == false && errors.indexOf(post?.image) == -1" src="{{IMAGES_URL + post?.image}}"/>									
+									<img  *ngIf="is_uploaded == true" [src]="sanitizer.bypassSecurityTrustUrl(image_url)" class="rounded-circle img-thumbnail" >
+							     <a href="javascript:void(0)" class="closeicon" *ngIf="errors.indexOf(image_url) == -1 || errors.indexOf(post?.image) == -1">
+								    <i class="flaticon2-close-cross" (click)="removeImage()"></i>
+								 </a>
+							   </div>
+							</div>
+						</div>					
+						<div class="col-md-12 mt-3">
+							<button btn-submit mat-raised-button color="pink">Save Changes</button>
+						</div>					
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+</div> 
+
+
